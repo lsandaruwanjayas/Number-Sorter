@@ -6,9 +6,9 @@ const sortInputArray = (event) => {
   const inputValues = [
     ...document.getElementsByClassName("values-dropdown"),
   ].map((dropdown) => Number(dropdown.value));
- 
-  updateMinToMaxUI(bubbleSortMinToMax(inputValues))
-  updateMaxToMinUI(bubbleSortMaxToMin(inputValues))
+
+  updateMinToMaxUI(inputValues.sort((a,b) => {return a-b}));
+  updateMaxToMinUI(inputValues.sort((a,b) => {return b-a}));
 };
 
 const updateMinToMaxUI = (array = []) => {
@@ -19,17 +19,46 @@ const updateMinToMaxUI = (array = []) => {
 };
 
 const bubbleSortMinToMax = (array) => {
-    for (let i = 0; i < array.length; i++) {
-      for (let j = 0; j < array.length - 1; j++) {
-        if (array[j] > array[j + 1]) {
-          const temp = array[j];
-          array[j] = array[j + 1];
-          array[j + 1] = temp;
-        }
+  for (let i = 0; i < array.length; i++) {
+    for (let j = 0; j < array.length - 1; j++) {
+      if (array[j] > array[j + 1]) {
+        const temp = array[j];
+        array[j] = array[j + 1];
+        array[j + 1] = temp;
       }
     }
-    return array;
-  };
+  }
+  return array;
+};
+
+const selectionSortMinToMax = (array) => {
+  for (let i = 0; i < array.length; i++) {
+    let minIndex = i;
+    for (let j = i + 1; j < array.length; j++) {
+      if (array[j] < array[minIndex]) {
+        minIndex = j;
+      }
+    }
+    const temp = array[i];
+    array[i] = array[minIndex];
+    array[minIndex] = temp;
+  }
+  return array;
+};
+
+const insertionSortMinToMax = (array) => {
+  for (let i = 1; i < array.length; i++) {
+    const currValue = array[i];
+    let j = i-1;
+    
+    while (j >= 0 && array[j]>currValue) {
+        array[j+1] = array[j];
+        j--;
+    }
+    array[j+1] = currValue;
+  }
+  return array
+};
 
 const updateMaxToMinUI = (array = []) => {
   array.forEach((num, i) => {
@@ -38,20 +67,46 @@ const updateMaxToMinUI = (array = []) => {
   });
 };
 
-
 const bubbleSortMaxToMin = (array) => {
-    for (let i = 0; i < array.length; i++) {
-        for (let j = 0; j < array.length - 1; j++) {
-          if (array[j] < array[j + 1]) {
-            const temp = array[j];
-            array[j] = array[j + 1];
-            array[j + 1] = temp;
-          }
-        }
+  for (let i = 0; i < array.length; i++) {
+    for (let j = 0; j < array.length - 1; j++) {
+      if (array[j] < array[j + 1]) {
+        const temp = array[j];
+        array[j] = array[j + 1];
+        array[j + 1] = temp;
       }
-      return array;
+    }
+  }
+  return array;
+};
+
+const selectionSortMaxToMin = (array) => {
+  for (let i = 0; i < array.length; i++) {
+    let minIndex = i;
+    for (let j = i + 1; j < array.length; j++) {
+      if (array[j] > array[minIndex]) {
+        minIndex = j;
+      }
+    }
+    const temp = array[i];
+    array[i] = array[minIndex];
+    array[minIndex] = temp;
+  }
+  return array;
+};
+
+const insertionSortMaxToMin = (array) => {
+    for (let i = 1; i < array.length; i++) {
+      const currValue = array[i];
+      let j = i-1;
+      
+      while (array[j]<currValue) {
+          array[j+1] = array[j];
+          j--;
+      }
+      array[j+1] = currValue;
+    }
+    return array
   };
-
-
 
 sortButton.addEventListener("click", sortInputArray);
