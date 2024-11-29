@@ -56,8 +56,12 @@ fieldset > div {
     align-items: center;
 }
 
-.bracket, .comma{
+.bracket{
 font-size: 2.2rem;
+}
+
+.comma{
+  font-size: 2rem;
 }
 
 form .comma{
@@ -108,14 +112,13 @@ button{
     font-size: 2rem;
 }
 
-@media (min-width: 550px) {
+@media(min-width: 400px) {
     form, .output-container{
         max-width: 480px;
     }
     fieldset{
         max-width: 400px;
     }
-
     .output-array{
         max-width: 420px;
     }
